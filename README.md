@@ -1,4 +1,4 @@
-Muzix Application using MYSQL DataBase:
+Muzix Application using MONGO DataBase:
 
 -->This is an online application that helps users manage musiclisted on Music Database.
 

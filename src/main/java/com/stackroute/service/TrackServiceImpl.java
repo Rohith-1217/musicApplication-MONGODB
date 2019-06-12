@@ -7,6 +7,7 @@ import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,11 @@ public class TrackServiceImpl implements TrackService{
     //override all methods present in TrackService
 
     TrackRepository trackRepository;
+    @Value("${spring.trackAlreadyExists}")
+    String str;
+    @Value("${spring.trackNotFound}")
+    String str1;
+
 
     @Autowired
     public TrackServiceImpl(TrackRepository trackRepository)
@@ -33,13 +39,13 @@ public class TrackServiceImpl implements TrackService{
     public Track saveTrack(Track track) throws TrackAlreadyExistsException{
         if(trackRepository.existsById(track.getTrackId()))
         {
-            throw new TrackAlreadyExistsException("Track already exists");
+            throw new TrackAlreadyExistsException(str);
         }
         Track savedUser=trackRepository.save(track);
 
         if(savedUser==null)
         {
-            throw new TrackAlreadyExistsException("Track already exists");
+            throw new TrackAlreadyExistsException(str);
         }
 
         return savedUser;
@@ -49,7 +55,7 @@ public class TrackServiceImpl implements TrackService{
     public List<Track> getAllTracks() throws TrackNotFoundException{
         List<Track> list=trackRepository.findAll();
         if(list.isEmpty()){
-            throw new TrackNotFoundException("Track empty!");
+            throw new TrackNotFoundException(str);
         }
         return list;
     }
@@ -62,13 +68,13 @@ public class TrackServiceImpl implements TrackService{
         }
         else
         {
-            throw new TrackNotFoundException("track not found");
+            throw new TrackNotFoundException("str1");
         }
         return null;
     }
 
     @Override
-    public Track updateComments(Track track) throws GlobalException {
+    public Track updateComments(Track track) throws TrackNotFoundException {
         Track track1=null;
         if(trackRepository.existsById(track.getTrackId()))
         {
@@ -77,7 +83,7 @@ public class TrackServiceImpl implements TrackService{
         }
         else
         {
-            throw new GlobalException();
+            throw new TrackNotFoundException();
         }
 
         return track1;

@@ -6,11 +6,13 @@ import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping(value="api/v1")
@@ -49,19 +51,15 @@ public class TrackController {
     }
 
     @DeleteMapping("track/{trackId}")
-    public ResponseEntity<?> deleteTrack(@PathVariable("trackId") int trackId) {
+    public ResponseEntity<?> deleteTrack(@PathVariable("trackId") int trackId) throws TrackNotFoundException {
         //return new ResponseEntity<String>(trackService.deleteTrack(id),HttpStatus.OK);
 
-        try {
             Track track = trackService.deleteTrack(trackId);
             return new ResponseEntity<String>("track deleted", HttpStatus.OK);
-        } catch (TrackNotFoundException e) {
-            return new ResponseEntity<String>("track name not found", HttpStatus.NOT_FOUND);
-        }
     }
 
     @PutMapping("track/{trackId}")
-    public ResponseEntity<?> updateComments(@RequestBody Track track) throws GlobalException {
+    public ResponseEntity<?> updateComments(@RequestBody Track track) throws TrackNotFoundException {
 
         Track track1 = trackService.updateComments(track);
         return new ResponseEntity<String>("track updated", HttpStatus.OK);

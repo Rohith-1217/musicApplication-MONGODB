@@ -16,5 +16,5 @@ public interface TrackService {
 
     public Track deleteTrack(int trackId) throws TrackNotFoundException;
 
-    public Track updateComments(Track track) throws GlobalException;
+    public Track updateComments(Track track) throws TrackNotFoundException;
 }

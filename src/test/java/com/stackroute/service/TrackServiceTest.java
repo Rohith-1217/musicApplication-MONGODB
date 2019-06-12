@@ -88,7 +88,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void testUpdateTrackComments() throws GlobalException{
+    public void testUpdateTrackComments() throws TrackNotFoundException{
 
         when(trackRepository.existsById(track.getTrackId())).thenReturn(true);
         when(trackRepository.save((Track)any())).thenReturn(track);
@@ -99,7 +99,7 @@ public class TrackServiceTest {
 
 
     @Test(expected = GlobalException.class)
-    public void testUpdateTrackCommentsFailure() throws GlobalException{
+    public void testUpdateTrackCommentsFailure() throws TrackNotFoundException{
 
         when(trackRepository.findById(track.getTrackId())).thenReturn(Optional.empty());
         track.setTrackComments("good albums");

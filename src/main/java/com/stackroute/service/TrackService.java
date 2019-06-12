@@ -12,13 +12,9 @@ public interface TrackService {
 
     public Track saveTrack(Track track) throws TrackAlreadyExistsException;
 
-    public List<Track> getAllTracks();
-
-   // public Track getTrackById(int id) throws TrackNotFoundException;
-
-   // public Track getByName(String trackName) throws TrackNotFoundException;
+    public List<Track> getAllTracks() throws TrackNotFoundException;
 
     public Track deleteTrack(int trackId) throws TrackNotFoundException;
 
-    public Track updateComments(int id,Track track) throws GlobalException;
+    public Track updateComments(Track track) throws GlobalException;
 }

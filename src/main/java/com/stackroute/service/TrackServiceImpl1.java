@@ -15,27 +15,17 @@ public class TrackServiceImpl1 implements TrackService {
     }
 
     @Override
-    public List<Track> getAllTracks() {
+    public List<Track> getAllTracks() throws TrackNotFoundException {
         return null;
     }
 
-  /*  @Override
-    public Track getTrackById(int id) throws TrackNotFoundException {
-        return null;
-    }*/
-
-  /*  @Override
-    public Track getByName(String trackName) throws TrackNotFoundException {
-        return null;
-    }
-*/
     @Override
     public Track deleteTrack(int trackId) throws TrackNotFoundException {
         return null;
     }
 
     @Override
-    public Track updateComments(int id, Track track) throws GlobalException {
+    public Track updateComments(Track track) throws GlobalException {
         return null;
     }
 

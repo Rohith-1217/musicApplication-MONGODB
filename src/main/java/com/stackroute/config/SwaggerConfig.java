@@ -1,4 +1,3 @@
-/*
 package com.stackroute.config;
 
 import com.google.common.base.Predicate;
@@ -28,4 +27,4 @@ public class SwaggerConfig {
                 "Apache License Version 2.0", "https://www.apache.org/license.html");
         return apiInfo;
     }
-}*/
+}

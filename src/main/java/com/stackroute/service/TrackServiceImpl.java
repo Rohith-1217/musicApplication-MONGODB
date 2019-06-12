@@ -46,37 +46,14 @@ public class TrackServiceImpl implements TrackService{
     }
 
     @Override
-    public List<Track> getAllTracks() {
-        return trackRepository.findAll();
+    public List<Track> getAllTracks() throws TrackNotFoundException{
+        List<Track> list=trackRepository.findAll();
+        if(list.isEmpty()){
+            throw new TrackNotFoundException("Track empty!");
+        }
+        return list;
     }
 
-    /*@Override
-    public Track getTrackById(int id) throws TrackNotFoundException{
-        Track track=null;
-        if(trackRepository.existsById(id))
-        {
-            track=trackRepository.getOne(id);
-        }
-        else
-        {
-            throw new TrackNotFoundException("track not exists");
-        }
-        if(track==null){
-            throw new TrackNotFoundException("track not found");
-        }
-        return track;
-    }*/
-
-  /*  @Override
-    public Track getByName(String trackName) throws TrackNotFoundException {
-        Track track=null;
-        track=trackRepository.getByName(trackName);
-        if(track==null){
-            throw new TrackNotFoundException("track name not found");
-        }
-        return track;
-    }
-*/
     @Override
     public Track deleteTrack(int trackId) throws TrackNotFoundException {
         if(trackRepository.existsById(trackId))
@@ -91,17 +68,19 @@ public class TrackServiceImpl implements TrackService{
     }
 
     @Override
-    public Track updateComments(int id,Track track) throws GlobalException {
-      if(trackRepository.existsById(id))
-      {
-          track.setTrackComments(track.getTrackComments());
-      }
-      else
-      {
-          throw new GlobalException();
-      }
-      Track track1=trackRepository.save(track);
-      return track1;
+    public Track updateComments(Track track) throws GlobalException {
+        Track track1=null;
+        if(trackRepository.existsById(track.getTrackId()))
+        {
+            track.setTrackComments(track.getTrackComments()); //trackRepository.save(Track)
+            track1=trackRepository.save(track);
+        }
+        else
+        {
+            throw new GlobalException();
+        }
+
+        return track1;
 
     }
 }
